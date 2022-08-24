@@ -125,18 +125,17 @@ bool isvalid(char grid[9], int location)
 bool MoveIsWin(char grid[9], int one, int two, int three, char tocheck)
 {
 	int thingstocheck[3];
-	int empty;
 	int i = 0;
-	if (grid[one] == '\'') { empty = one; }
-	else { thingstocheck[i] = one; i++; }
-	if (grid[two] == '\'') { empty = two; }
-	else { thingstocheck[i] = two; i++; }
-	if (grid[three] == '\'') { empty = three; }
-	else { thingstocheck[i] = three; i++; }
+	if (!grid[one] == '\'')
+	{ thingstocheck[i] = one; i++; }
+	if (!grid[two] == '\'')
+	{ thingstocheck[i] = two; i++; }
+	if (!grid[three] == '\'')
+	{ thingstocheck[i] = three; i++; }
 	if (i < 2) return false;
 	else
 	{
-		if (grid[thingstocheck[0]] == tocheck && grid[thingstocheck[1]] == tocheck) return true;
+		if (grid[thingstocheck[0]] == tocheck && grid[thingstocheck[1]] == tocheck && grid[thingstocheck[2]]) return true;
 		else printf("Fatal error");
 	}
 }
@@ -147,38 +146,6 @@ void DoEnemyMove(char grid[9], bool player)
 	//check if AI can win
 	bool canwin = false;
 	char tocheck = player ? 'o' : 'x';
-
-	/*if (grid[0] == '\'' && grid[1] == tocheck && grid[2] == tocheck) { canwin = true; move = 0; }
-	else if (grid[0] == tocheck && grid[1] == '\'' && grid[2] == tocheck) { canwin = true; move = 1; }
-	else if (grid[0] == tocheck && grid[1] == tocheck && grid[2] == '\'') { canwin = true; move = 2; }
-
-	else if (grid[3] == '\'' && grid[4] == tocheck && grid[5] == tocheck) { canwin = true; move = 3; }
-	else if (grid[3] == tocheck && grid[4] == '\'' && grid[5] == tocheck) { canwin = true; move = 4; }
-	else if (grid[3] == tocheck && grid[4] == tocheck && grid[5] == '\'') { canwin = true; move = 5; }
-
-	else if (grid[6] == '\'' && grid[7] == tocheck && grid[8] == tocheck) { canwin = true; move = 6; }
-	else if (grid[6] == tocheck && grid[7] == '\'' && grid[8] == tocheck) { canwin = true; move = 7; }
-	else if (grid[6] == tocheck && grid[7] == tocheck && grid[8] == '\'') { canwin = true; move = 8; }
-
-	else if (grid[0] == '\'' && grid[4] == tocheck && grid[8] == tocheck) { canwin = true; move = 0; }
-	else if (grid[0] == tocheck && grid[4] == '\'' && grid[8] == tocheck) { canwin = true; move = 4; }
-	else if (grid[0] == tocheck && grid[4] == tocheck && grid[8] == '\'') { canwin = true; move = 8; }
-
-	else if (grid[2] == '\'' && grid[4] == tocheck && grid[6] == tocheck) { canwin = true; move = 2; }
-	else if (grid[2] == tocheck && grid[4] == '\'' && grid[6] == tocheck) { canwin = true; move = 4; }
-	else if (grid[2] == tocheck && grid[4] == tocheck && grid[6] == '\'') { canwin = true; move = 6; }
-
-	else if (grid[2] == '\'' && grid[5] == tocheck && grid[8] == tocheck) { canwin = true; move = 2; }
-	else if (grid[2] == tocheck && grid[5] == '\'' == tocheck && grid[8]) { canwin = true; move = 5; }
-	else if (grid[2] == tocheck && grid[5] == tocheck && grid[8] == '\'') { canwin = true; move = 8; }
-
-	else if (grid[1] == '\'' == tocheck && grid[4] == tocheck && grid[7]) { canwin = true; move = 1; }
-	else if (grid[1] == tocheck && grid[4] == '\'' && grid[7] == tocheck) { canwin = true; move = 4; }
-	else if (grid[1] == tocheck && grid[4] == tocheck && grid[7] == '\'') { canwin = true; move = 7; }
-
-	else if (grid[0] == '\'' && grid[3] == tocheck && grid[6] == tocheck) { canwin = true; move = 0; }
-	else if (grid[0] == tocheck && grid[3] == '\'' && grid[6] == tocheck) { canwin = true; move = 3; }
-	else if (grid[0] == tocheck && grid[3] == tocheck && grid[6] == '\'') { canwin = true; move = 6; }*/
 	if (MoveIsWin(grid,0,1,2,tocheck)) { canwin = true; move = 0; }
 
 	if (canwin) { grid[move] = player ? 'o' : 'x'; return; }
@@ -318,6 +285,10 @@ restartLabel: {};
 	gets(str);
 	if (str[0] == 'y' || str[0] == 'Y')
 	{
+		for (int i = 0; i < 9; i++)
+		{
+			tempgrid[i] = '\'';
+		}
 		goto restartLabel;
 	}
 	else if (str[0] == 'n' || str[0] == 'N');
