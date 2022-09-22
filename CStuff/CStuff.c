@@ -114,7 +114,7 @@ bool ParseLocation(char toparse[3], int* location)
 	return true;
 
 }
-bool isvalid(char grid[9], int location)
+bool isValid(char grid[9], int location)
 {
 	if (grid[location] == '\'')
 	{
@@ -205,8 +205,8 @@ int main()
 	char str[2];
 	int location = -1;
 	char tempgrid[9] = { '\'','\'' ,'\'' ,'\'' ,'\'' ,'\'' ,'\'' ,'\'' ,'\'' };
-	bool aienabled;
-	bool aifaction;
+	bool aienabled = false;
+	bool aifaction = false;
 	printf("Play against AI? (y/n)");
 label2:
 	gets(str);
@@ -263,7 +263,7 @@ restartLabel: {};
 				gets(str);
 				goto label;
 			}
-			else if (isvalid(tempgrid, location))
+			else if (isValid(tempgrid, location))
 			{
 				tempgrid[location] = whoseturn ? 'o' : 'x';
 			}
